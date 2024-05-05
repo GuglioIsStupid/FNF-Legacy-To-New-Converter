@@ -94,17 +94,16 @@ def main() -> None:
             # time, lane, holdtime
             # in new format, 0-3 is player 1, 4-7 is player 2
             # in old format, mustHit and 0-3 is player 1, 4-7 is player 2
-            # !mustHit and 0-3 is player 2, 4-7 is player 1
+            # not mustHit and 0-3 is player 2, 4-7 is player 1
             time:float = noteData[0]
             lane:int = noteData[1]
             holdTime:float = noteData[2] if len(noteData) > 3 else 0
 
-            if mustHit:
-                if lane < 4:
-                    lane += 4
-                else:
-                    lane -= 4
-            else:
+            #local enemyNote = (mustHitSection and noteType >= 4) or (not mustHitSection and noteType < 4)
+            enemyNote:bool = (mustHit and lane >= 4) or (not mustHit and lane < 4)
+
+            # if enemyNote and not mustHitSection
+            if enemyNote and not mustHit:
                 if lane < 4:
                     lane += 4
                 else:
